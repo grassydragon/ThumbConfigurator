@@ -5,11 +5,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material.icons.outlined.UploadFile
@@ -20,6 +21,7 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -93,7 +95,8 @@ fun MainScreen(
         },
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
-        }
+        },
+        contentWindowInsets = WindowInsets.safeDrawing
     ) { innerPadding ->
         Box(
             modifier = Modifier
@@ -135,7 +138,7 @@ fun ParametersList(values: Map<Parameter, Int>, onValueChanged: (Parameter, Int)
                     OutlinedTextField(
                         // The `menuAnchor` modifier must be passed to the text field for correctness.
                         modifier = Modifier
-                            .menuAnchor()
+                            .menuAnchor(MenuAnchorType.PrimaryNotEditable)
                             .fillMaxWidth(),
                         value = parameter.getOption(value),
                         onValueChange = {},
@@ -144,7 +147,6 @@ fun ParametersList(values: Map<Parameter, Int>, onValueChanged: (Parameter, Int)
                         label = { Text(parameter.displayName) },
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
                         colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
-                        //keyboardOptions = KeyboardOptions(shouldShowKeyboardOnFocus = false),
                         supportingText = {
                             if (parameter.note.isNotEmpty()) {
                                 Text(parameter.note)
