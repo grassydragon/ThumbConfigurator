@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "io.github.grassydragon.thumbconfigurator"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "io.github.grassydragon.thumbconfigurator"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 37
         versionCode = 3
         versionName = "1.2"
 
